@@ -107,7 +107,6 @@ function updateProgress(e) {
 
     const currentMinutes = Math.floor(currentTime / 60);
     let currentSeconds = Math.floor(currentTime % 60);
-    console.log(currentMinutes, currentSeconds);
 
     if (currentSeconds < 10) {
         currentSeconds = `0${currentSeconds}`;
