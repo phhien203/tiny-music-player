@@ -2,6 +2,9 @@ const music = document.querySelector('audio');
 const progressContainer = document.getElementById('progress-container');
 const progress = document.getElementById('progress');
 
+const durationEl = document.getElementById('duration');
+const currentTimeEl = document.getElementById('current-time');
+
 const prevBtn = document.getElementById('prev');
 const nextBtn = document.getElementById('next');
 const playBtn = document.getElementById('play');
@@ -90,6 +93,29 @@ function updateProgress(e) {
     const { currentTime, duration } = e.target;
     const progressPercent = (currentTime / duration) * 100;
     progress.style.width = `${progressPercent}%`;
+
+    const durationMinutes = Math.floor(duration / 60);
+    let durationSeconds = Math.floor(duration % 60);
+
+    if (durationSeconds < 10) {
+        durationSeconds = `0${durationSeconds}`;
+    }
+
+    if (durationMinutes) {
+        durationEl.textContent = `${durationMinutes}:${durationSeconds}`;
+    }
+
+    const currentMinutes = Math.floor(currentTime / 60);
+    let currentSeconds = Math.floor(currentTime % 60);
+    console.log(currentMinutes, currentSeconds);
+
+    if (currentSeconds < 10) {
+        currentSeconds = `0${currentSeconds}`;
+    }
+
+    if (currentSeconds) {
+        currentTimeEl.textContent = `${currentMinutes}:${currentSeconds}`;
+    }
 }
 
 prevBtn.addEventListener('click', prevSong);
