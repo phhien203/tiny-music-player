@@ -145,3 +145,4 @@ prevBtn.addEventListener('click', prevSong);
 nextBtn.addEventListener('click', nextSong);
 progressContainer.addEventListener('click', updateProgressBar);
 music.addEventListener('timeupdate', updateProgress);
+music.addEventListener('ended', nextSong);
