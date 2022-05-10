@@ -61,6 +61,7 @@ let songIndex = 0;
 function loadSong(song) {
     title.textContent = song.displayName;
     artist.textContent = song.artist;
+    // artist.innerText = song.artist;
     music.src = `music/${song.name}.mp3`;
     image.src = `img/${song.name}.jpg`;
 }
