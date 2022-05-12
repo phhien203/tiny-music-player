@@ -1,5 +1,11 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 
+export interface Song {
+  name: string;
+  displayName: string;
+  artist: string;
+}
+
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -8,9 +14,31 @@ import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 })
 export class AppComponent implements OnInit {
   title = 'tiny-music-player';
+  songs: Song[] = [
+    {
+      name: 'jacinto-1',
+      displayName: 'Electric Chill Machine',
+      artist: 'Jacinto Design',
+    },
+    {
+      name: 'jacinto-2',
+      displayName: 'Seven Nation Army (Remix)',
+      artist: 'Jacinto Design',
+    },
+    {
+      name: 'jacinto-3',
+      displayName: 'Good Night, Disco Queen',
+      artist: 'Jacinto Design',
+    },
+    {
+      name: 'metric-1',
+      displayName: 'Front Row (Remix)',
+      artist: 'Metric/Jacinto Design',
+    },
+  ];
 
   ngOnInit(): void {
-    const music = document.querySelector('audio');
+    /*const music = document.querySelector('audio');
     const progressContainer = document.getElementById('progress-container');
     const progress = document.getElementById('progress');
 
@@ -25,82 +53,7 @@ export class AppComponent implements OnInit {
     const title = document.getElementById('title');
     const artist = document.getElementById('artist');
 
-    const songs = [
-      {
-        name: 'jacinto-1',
-        displayName: 'Electric Chill Machine',
-        artist: 'Jacinto Design',
-      },
-      {
-        name: 'jacinto-2',
-        displayName: 'Seven Nation Army (Remix)',
-        artist: 'Jacinto Design',
-      },
-      {
-        name: 'jacinto-3',
-        displayName: 'Good Night, Disco Queen',
-        artist: 'Jacinto Design',
-      },
-      {
-        name: 'metric-1',
-        displayName: 'Front Row (Remix)',
-        artist: 'Metric/Jacinto Design',
-      },
-    ];
-
-    let isPlaying = false;
-
-    function playSong() {
-      isPlaying = true;
-      playBtn!.classList.replace('fa-play', 'fa-pause');
-      playBtn!.setAttribute('title', 'Pause');
-      music!.play();
-    }
-
-    function pauseSong() {
-      isPlaying = false;
-      playBtn!.classList.replace('fa-pause', 'fa-play');
-      playBtn!.setAttribute('title', 'Play');
-      music!.pause();
-    }
-
-    playBtn!.addEventListener('click', () => {
-      isPlaying ? pauseSong() : playSong();
-    });
-
     let songIndex = 0;
-
-    function loadSong(song: any) {
-      title!.textContent = song.displayName;
-      artist!.textContent = song.artist;
-      // artist.innerText = song.artist;
-      music!.src = `/assets/music/${song.name}.mp3`;
-      image!.src = `/assets/img/${song.name}.jpg`;
-    }
-
-    loadSong(songs[songIndex]);
-
-    function nextSong() {
-      songIndex++;
-
-      if (songIndex > songs.length - 1) {
-        songIndex = 0;
-      }
-
-      loadSong(songs[songIndex]);
-      playSong();
-    }
-
-    function prevSong() {
-      songIndex--;
-
-      if (songIndex < 0) {
-        songIndex = songs.length - 1;
-      }
-
-      loadSong(songs[songIndex]);
-      playSong();
-    }
 
     function calculateDurationTime(duration: any) {
       const durationMinutes = Math.floor(duration / 60);
@@ -156,10 +109,8 @@ export class AppComponent implements OnInit {
       music!.currentTime = (e.offsetX / progressBarWidth) * music!.duration;
     }
 
-    prevBtn!.addEventListener('click', prevSong);
-    nextBtn!.addEventListener('click', nextSong);
     progressContainer!.addEventListener('click', updateProgressBar);
     music!.addEventListener('timeupdate', updateProgress);
-    music!.addEventListener('ended', nextSong);
+    // music!.addEventListener('ended', nextSong);*/
   }
 }

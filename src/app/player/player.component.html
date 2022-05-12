@@ -1,0 +1,31 @@
+<div class="player-container">
+  <!--song-->
+  <div class="img-container">
+    <img [src]="'/assets/img/' + songs[songIndex].name + '.jpg'" alt="Album Art" />
+  </div>
+  <h2 id="title">{{ songs[songIndex].displayName }}</h2>
+  <h3 id="artist">{{ songs[songIndex].artist }}</h3>
+  <audio #audio [src]="'/assets/music/' + songs[songIndex].name + '.mp3'"></audio>
+
+  <!--progress-->
+  <div id="progress-container" class="progress-container">
+    <div id="progress" class="progress"></div>
+    <div class="duration-wrapper">
+      <span id="current-time">0:00</span>
+      <span id="duration">0:00</span>
+    </div>
+  </div>
+
+  <!--controls-->
+  <div class="player-controls">
+    <i title="Previous" class="fas fa-backward" (click)="previousSong()"></i>
+    <i
+      class="fas fa-play main-button"
+      [class.fa-play]="!isPlaying"
+      [class.fa-pause]="isPlaying"
+      [title]="isPlaying ? 'Pause' : 'Play'"
+      (click)="isPlaying ? pauseMusic() : playMusic()"
+    ></i>
+    <i title="Next" class="fas fa-forward" (click)="nextSong()"></i>
+  </div>
+</div>
