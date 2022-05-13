@@ -55,20 +55,6 @@ export class AppComponent implements OnInit {
 
     let songIndex = 0;
 
-    function calculateDurationTime(duration: any) {
-      const durationMinutes = Math.floor(duration / 60);
-      let durationSeconds: any = Math.floor(duration % 60);
-
-      if (durationSeconds < 10) {
-        durationSeconds = `0${durationSeconds}`;
-      }
-
-      return {
-        durationMinutes,
-        durationSeconds,
-      };
-    }
-
     function calculateCurrentTIme(currentTime: any) {
       const currentMinutes = Math.floor(currentTime / 60);
       let currentSeconds: any = Math.floor(currentTime % 60);

@@ -1,4 +1,5 @@
-import { Component, ElementRef, Input, ViewChild } from '@angular/core';
+import { Component, ElementRef, Input, ViewChild, OnInit } from '@angular/core';
+import { fromEvent, map, Observable } from 'rxjs';
 import { Song } from '../app.component';
 
 @Component({
@@ -6,13 +7,25 @@ import { Song } from '../app.component';
   templateUrl: './player.component.html',
   styleUrls: ['./player.component.scss'],
 })
-export class PlayerComponent {
+export class PlayerComponent implements OnInit {
   @Input() songs: Song[] = [];
 
   @ViewChild('audio', { static: true }) audio!: ElementRef<HTMLAudioElement>;
 
   isPlaying = false;
   songIndex = 0;
+  duration$!: Observable<string>;
+
+  ngOnInit(): void {
+    this.duration$ = fromEvent(this.audio.nativeElement, 'timeupdate').pipe(
+      map((e: any) => e.target.duration),
+      map((duration) => calculateDurationTime(duration)),
+      map(
+        ({ durationMinutes, durationSeconds }) =>
+          `${durationMinutes}:${durationSeconds}`
+      )
+    );
+  }
 
   playMusic(): void {
     this.isPlaying = true;
@@ -43,4 +56,18 @@ export class PlayerComponent {
 
     this.playMusic();
   }
+}
+
+function calculateDurationTime(duration: number) {
+  const durationMinutes = Math.floor(duration / 60);
+  let durationSeconds: number | string = Math.floor(duration % 60);
+
+  if (durationSeconds < 10) {
+    durationSeconds = `0${durationSeconds}`;
+  }
+
+  return {
+    durationMinutes,
+    durationSeconds,
+  };
 }
