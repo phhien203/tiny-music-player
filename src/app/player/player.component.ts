@@ -15,14 +15,26 @@ export class PlayerComponent implements OnInit {
   isPlaying = false;
   songIndex = 0;
   duration$!: Observable<string>;
+  currentTime$!: Observable<string>;
 
   ngOnInit(): void {
-    this.duration$ = fromEvent(this.audio.nativeElement, 'timeupdate').pipe(
+    const timeUpdate$ = fromEvent(this.audio.nativeElement, 'timeupdate');
+
+    this.duration$ = timeUpdate$.pipe(
       map((e: any) => e.target.duration),
       map((duration) => calculateDurationTime(duration)),
       map(
         ({ durationMinutes, durationSeconds }) =>
           `${durationMinutes}:${durationSeconds}`
+      )
+    );
+
+    this.currentTime$ = timeUpdate$.pipe(
+      map((e: any) => e.target.currentTime),
+      map((currentTime) => calculateCurrentTime(currentTime)),
+      map(
+        ({ currentMinutes, currentSeconds }) =>
+          `${currentMinutes}:${currentSeconds}`
       )
     );
   }
@@ -69,5 +81,19 @@ function calculateDurationTime(duration: number) {
   return {
     durationMinutes,
     durationSeconds,
+  };
+}
+
+function calculateCurrentTime(currentTime: number) {
+  const currentMinutes = Math.floor(currentTime / 60);
+  let currentSeconds: number | string = Math.floor(currentTime % 60);
+
+  if (currentSeconds < 10) {
+    currentSeconds = `0${currentSeconds}`;
+  }
+
+  return {
+    currentMinutes,
+    currentSeconds,
   };
 }

@@ -55,20 +55,6 @@ export class AppComponent implements OnInit {
 
     let songIndex = 0;
 
-    function calculateCurrentTIme(currentTime: any) {
-      const currentMinutes = Math.floor(currentTime / 60);
-      let currentSeconds: any = Math.floor(currentTime % 60);
-
-      if (currentSeconds < 10) {
-        currentSeconds = `0${currentSeconds}`;
-      }
-
-      return {
-        currentMinutes,
-        currentSeconds,
-      };
-    }
-
     function updateProgress(e: any) {
       const { currentTime, duration } = e.target;
       const progressPercent = (currentTime / duration) * 100;
