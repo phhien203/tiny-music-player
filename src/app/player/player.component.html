@@ -1,18 +1,27 @@
 <div class="player-container">
   <!--song-->
   <div class="img-container">
-    <img [src]="'/assets/img/' + songs[songIndex].name + '.jpg'" alt="Album Art" />
+    <img
+      [src]="'/assets/img/' + songs[songIndex].name + '.jpg'"
+      alt="Album Art"
+    />
   </div>
   <h2>{{ songs[songIndex].displayName }}</h2>
   <h3>{{ songs[songIndex].artist }}</h3>
-  <audio #audio [src]="'/assets/music/' + songs[songIndex].name + '.mp3'"></audio>
+  <audio
+    #audio
+    [src]="'/assets/music/' + songs[songIndex].name + '.mp3'"
+  ></audio>
 
   <!--progress-->
-  <div id="progress-container" class="progress-container">
-    <div id="progress" class="progress"></div>
+  <div id="progress-container" class="progress-container" (click)="updateProgressBar($event)">
+    <div
+      class="progress"
+      [style.width.%]="(progressPercent$ | async) ?? 0"
+    ></div>
     <div class="duration-wrapper">
-      <span>{{ (currentTime$ | async) ?? '0:00' }}</span>
-      <span>{{ (duration$ | async) ?? '0:00' }}</span>
+      <span>{{ (currentTime$ | async) ?? "0:00" }}</span>
+      <span>{{ (duration$ | async) ?? "0:00" }}</span>
     </div>
   </div>
 

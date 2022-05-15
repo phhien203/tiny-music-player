@@ -1,5 +1,5 @@
 import { Component, ElementRef, Input, ViewChild, OnInit } from '@angular/core';
-import { fromEvent, map, Observable } from 'rxjs';
+import { combineLatest, fromEvent, map, Observable, startWith } from 'rxjs';
 import { Song } from '../app.component';
 
 @Component({
@@ -16,6 +16,7 @@ export class PlayerComponent implements OnInit {
   songIndex = 0;
   duration$!: Observable<string>;
   currentTime$!: Observable<string>;
+  progressPercent$!: Observable<number>;
 
   ngOnInit(): void {
     const timeUpdate$ = fromEvent(this.audio.nativeElement, 'timeupdate');
@@ -36,6 +37,15 @@ export class PlayerComponent implements OnInit {
         ({ currentMinutes, currentSeconds }) =>
           `${currentMinutes}:${currentSeconds}`
       )
+    );
+
+    this.progressPercent$ = timeUpdate$.pipe(
+      map((e: any) => {
+        const duration: number = e.target.duration ?? 1;
+        const currentTime: number = e.target.currentTime ?? 0;
+        return (currentTime / duration) * 100;
+      }),
+      startWith(0)
     );
   }
 
@@ -67,6 +77,12 @@ export class PlayerComponent implements OnInit {
     }
 
     this.playMusic();
+  }
+
+  updateProgressBar(e: any): void {
+    const progressBarWidth: number = e.target.clientWidth;
+    this.audio.nativeElement.currentTime =
+      (e.offsetX / progressBarWidth) * this.audio.nativeElement.duration;
   }
 }
 

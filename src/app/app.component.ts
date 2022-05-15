@@ -59,20 +59,6 @@ export class AppComponent implements OnInit {
       const { currentTime, duration } = e.target;
       const progressPercent = (currentTime / duration) * 100;
       progress!.style.width = `${progressPercent}%`;
-
-      const { durationMinutes, durationSeconds } =
-        calculateDurationTime(duration);
-
-      if (durationMinutes) {
-        durationEl!.textContent = `${durationMinutes}:${durationSeconds}`;
-      }
-
-      const { currentMinutes, currentSeconds } =
-        calculateCurrentTIme(currentTime);
-
-      if (currentSeconds) {
-        currentTimeEl!.textContent = `${currentMinutes}:${currentSeconds}`;
-      }
     }
 
     function updateProgressBar(e: any) {
