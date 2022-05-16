@@ -14,7 +14,11 @@
   ></audio>
 
   <!--progress-->
-  <div id="progress-container" class="progress-container" (click)="updateProgressBar($event)">
+  <div
+    id="progress-container"
+    class="progress-container"
+    (click)="updateProgressBar($event)"
+  >
     <div
       class="progress"
       [style.width.%]="(progressPercent$ | async) ?? 0"
